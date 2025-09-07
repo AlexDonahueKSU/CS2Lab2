@@ -9,9 +9,11 @@ int main() {
     std::cout << "Begin unit test for: Time::Time()\n";
 
     {
+        std::cout << "Default constructor check\n";
         Time t1;
         TimePart ref = {0,0,0};
         assert(t1.time() == ref);
+        std::cout << "Pass\n";
     }
 
     std::cout << "Done testing Time::Time()\n";

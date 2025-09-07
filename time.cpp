@@ -24,3 +24,26 @@ Time::Time() {
 }
 
 //...
+Time::Time(int hour)
+{
+    _time.minute = 0;
+    _time.second = 0;
+    if (hour < 0)
+    {
+        _time.hour = 0;
+    }
+    else if (hour > 23)
+    {
+        hour = hour % 24;
+        _time.hour = hour;
+    }
+    else if (hour >= 0 && hour <= 24)
+    {
+        _time.hour = hour;
+    }
+    else
+    {
+        throw std::invalid_argument("Invalid hour");
+    }
+
+}
