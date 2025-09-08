@@ -23,27 +23,121 @@ Time::Time() {
     _time.second = 0;
 }
 
-//...
-Time::Time(int hour)
+// Helper function for the hours/minutes/seconds. Seperating these processes into their own
+// functions help cut down on code bloat.
+
+int validateHour(int hour)
 {
-    _time.minute = 0;
-    _time.second = 0;
-    if (hour < 0)
+    int returnHour = 0;
+    if (hour < 1)
     {
-        _time.hour = 0;
+        returnHour = 0;
     }
     else if (hour > 23)
     {
-        hour = hour % 24;
-        _time.hour = hour;
+        returnHour = hour % 24;
     }
-    else if (hour >= 0 && hour <= 24)
+    else if (hour > 0 && hour < 224)
     {
-        _time.hour = hour;
+        returnHour = hour;
     }
     else
     {
         throw std::invalid_argument("Invalid hour");
     }
+    return returnHour;
+}
+
+int validateMinute(int minute)
+{
+    int returnMinute = 0;
+    if (minute < 1)
+    {
+        returnMinute = 0;
+    }
+    else if (minute > 59)
+    {
+        returnMinute = minute % 60;
+    }
+    else if (minute > 0 && minute < 60)
+    {
+        returnMinute = minute;
+    }
+    else
+    {
+         throw std::invalid_argument("Invalid minute");
+    }
+    return returnMinute;
+}
+
+int validateSecond(int second)
+{
+    int returnSecond = 0;
+    if (second < 1)
+    {
+        returnSecond = 0;
+    }
+    else if (second > 59)
+    {
+        returnSecond = second % 60;
+    }
+    else if (second > 0 && second < 60)
+    {
+        returnSecond = second;
+    }
+    else
+    {
+         throw std::invalid_argument("Invalid second");
+    }
+    return returnSecond;
+}
+
+// This function acts as the centerpiece to control the rest of the functions. It was important to have a function like this
+// because of the way that the time needs to increment. I originally had a design that only used the validate functions, but
+// this proved insufficient for the task.
+TimePart validateTime(int hour, int minute, int second)
+{
+    TimePart time;
+    // Start with seconds, as the seconds logic can cascade up to change the other values.
+    if (second > 59)
+    {
+        //Integer division allows for the proper value to be stored.
+        minute += second / 60;
+    }
+    time.second = validateSecond(second);
+
+    if (minute > 59)
+    {
+        hour += minute / 60;
+    }
+    time.minute = validateMinute(minute);
+    time.hour = validateHour(hour);
+
+    return time;
+}
+
+Time::Time(int hour)
+{
+    TimePart formattedTime = validateTime(hour, 0, 0);
+    _time.hour = formattedTime.hour;
+    _time.minute = formattedTime.minute;
+    _time.second = formattedTime.second;
+}
+
+Time::Time(int hour, int minute)
+{
+    TimePart formattedTime = validateTime(hour, minute, 0);
+    _time.hour = formattedTime.hour;
+    _time.minute = formattedTime.minute;
+    _time.second = formattedTime.second;
 
 }
+
+Time::Time(int hour, int minute, int second)
+{
+    TimePart formattedTime = validateTime(hour, minute, second);
+    _time.hour = formattedTime.hour;
+    _time.minute = formattedTime.minute;
+    _time.second = formattedTime.second;
+}
+
