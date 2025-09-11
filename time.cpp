@@ -29,7 +29,7 @@ Time::Time() {
 int validateHour(int hour)
 {
     int returnHour = 0;
-    if (hour < 1)
+    if (hour < 0)
     {
         returnHour = 0;
     }
@@ -37,7 +37,7 @@ int validateHour(int hour)
     {
         returnHour = hour % 24;
     }
-    else if (hour > 0 && hour < 224)
+    else if (hour >= 0 && hour < 24)
     {
         returnHour = hour;
     }
@@ -51,15 +51,21 @@ int validateHour(int hour)
 int validateMinute(int minute)
 {
     int returnMinute = 0;
-    if (minute < 1)
+    if (minute < -59)
     {
-        returnMinute = 0;
+        returnMinute = minute % 60 + 60;
+    }
+    else if (minute < 0)
+    {
+        // Say we enter -5 here, the modulus result back will be -5, adding this result
+        // to 60 gives us the value we actually want.
+        returnMinute = (minute % 60) + 60;
     }
     else if (minute > 59)
     {
         returnMinute = minute % 60;
     }
-    else if (minute > 0 && minute < 60)
+    else if (minute >= 0 && minute < 60)
     {
         returnMinute = minute;
     }
@@ -69,19 +75,19 @@ int validateMinute(int minute)
     }
     return returnMinute;
 }
-
+// Still need to do second
 int validateSecond(int second)
 {
     int returnSecond = 0;
-    if (second < 1)
+    if (second < 0)
     {
-        returnSecond = 0;
+        returnSecond = -second % 60;
     }
     else if (second > 59)
     {
         returnSecond = second % 60;
     }
-    else if (second > 0 && second < 60)
+    else if (second >= 0 && second < 60)
     {
         returnSecond = second;
     }
@@ -99,18 +105,39 @@ TimePart validateTime(int hour, int minute, int second)
 {
     TimePart time;
     // Start with seconds, as the seconds logic can cascade up to change the other values.
+
+    // Logic to check for the rollover of seconds.
     if (second > 59)
     {
         //Integer division allows for the proper value to be stored.
         minute += second / 60;
     }
+    else if (second < -60)
+    {
+        // The integer division solution isn't as clean for negatives, so I added extra logic.
+        minute = minute + (second / 60 - 1);
+    }
+    else if (second < 0)
+    {
+        minute -= 1; 
+    }
     time.second = validateSecond(second);
 
+    // Logic to check for the rollover of minutes.
     if (minute > 59)
     {
         hour += minute / 60;
     }
+    else if (minute < -60)
+    {
+        hour = hour + (minute / 60) - 1;
+    }
+    else if (minute < 0)
+    {
+        hour -= 1; 
+    }
     time.minute = validateMinute(minute);
+    // Hour exists independent of minutes/seconds, no need for extra checking
     time.hour = validateHour(hour);
 
     return time;
@@ -141,3 +168,7 @@ Time::Time(int hour, int minute, int second)
     _time.second = formattedTime.second;
 }
 
+bool Time::operator==(const Time& rhs)
+{
+    return _time.hour == rhs._time.hour && _time.minute == rhs._time.minute && _time.second == rhs._time.second;
+}

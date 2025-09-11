@@ -17,19 +17,21 @@ CPP = g++ # change to clang++ if you are on Mac
 OPTS = -g -Werror -W -Wunused -Wuninitialized -Wshadow -std=c++17
 
 # add your tests to the list
-TESTS = test_tp_equals test_default_ctor test_time_hour
+TESTS = test_tp_equals test_default_ctor test_time_hour test_time_hour_minute
 
 msg:
 	@echo 'Targets are: '
 	@echo '	- tests'
 	@echo '	- test_tp_equals'
 	@echo '	- test_default_ctor'
-	@echo '	- test_test_time_hour'
+	@echo '	- test_time_hour'
+	@echo ' - test_time_hour_minute'
 
 tests: $(TESTS)
 	./test_tp_equals
 	./test_default_ctor
 	./test_time_hour
+	./test_time_hour_minute
 # 	add ./your_test here for each of your tests
 
 # using % as a wildcard will have it build anything that starts with test_
