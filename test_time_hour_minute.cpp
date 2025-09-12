@@ -2,7 +2,7 @@
 #include <cassert>
 
 int main() {
-    std::cout << "Begin unit test for: Time::Time(int hour)\n";
+    std::cout << "Begin unit test for: Time::Time(int hour, int minute)\n";
     {
         std::cout << "Set hour to 5, minute to 2\n";
         Time t1(5,2);
@@ -42,6 +42,6 @@ int main() {
         assert(t5.time() == ref);
         std:: cout << "Pass\n";
     }
-    std::cout << "Done testing Time::Time(int hour)\n";
+    std::cout << "Done testing Time::Time(int hour, int minute)\n";
     return 0;
 }
