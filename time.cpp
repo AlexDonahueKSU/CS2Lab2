@@ -17,12 +17,6 @@ std::ostream& operator<<(std::ostream &out, const TimePart &tp) {
     return out;
 }
 
-Time::Time() {
-    _time.hour = 0;
-    _time.minute = 0;
-    _time.second = 0;
-}
-
 // Helper function for the hours/minutes/seconds. Seperating these processes into their own
 // functions help cut down on code bloat.
 
@@ -141,6 +135,12 @@ TimePart validateTime(int hour, int minute, int second)
     time.hour = validateHour(hour);
 
     return time;
+}
+
+Time::Time() {
+    _time.hour = 0;
+    _time.minute = 0;
+    _time.second = 0;
 }
 
 Time::Time(int hour)
