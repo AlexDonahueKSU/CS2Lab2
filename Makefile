@@ -61,6 +61,13 @@ test_default_ctor: time.o test_default_ctor.o
 test_default_ctor.o: time.hpp test_default_ctor.cpp
 	$(CPP) $(OPTS) -c test_default_ctor.cpp
 
+test_time_comparison: time.o test_time_comparison.o
+	$(CPP) $(OPTS) -o test_time_comparison test_time_comparison.o time.o
+	./test_time_comparison
+
+test_time_comparison.o: time.hpp test_time_comparison.cpp
+	$(CPP) $(OPTS) -c test_time_comparison.cpp
+
 time.o: time.cpp time.hpp
 	g++ -g -c time.cpp
 
