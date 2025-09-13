@@ -5,10 +5,10 @@ int main() {
     std::cout << "Begin unit test for: bool operator==(const Time& rhs)\n";
     {
         std::cout << "Test 2 default constructors\n";
-        Time t1();
-        Time t2();
+        Time t1;
+        Time t2;
         assert(t1 == t2);
-        
+        std:: cout << "Pass\n";
     }
     std::cout << "Done testing bool operator==(const Time& rhs)\n";
     return 0;
