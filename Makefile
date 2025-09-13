@@ -17,7 +17,8 @@ CPP = g++ # change to clang++ if you are on Mac
 OPTS = -g -Werror -W -Wunused -Wuninitialized -Wshadow -std=c++17
 
 # add your tests to the list
-TESTS = test_tp_equals test_default_ctor test_time_hour test_time_hour_minute test_time_hour_minute_second test_time_comparison
+TESTS = test_tp_equals test_default_ctor test_time_hour test_time_hour_minute \
+		test_time_hour_minute_second test_time_comparison test_increment.cpp
 
 msg:
 	@echo 'Targets are: '
@@ -28,6 +29,7 @@ msg:
 	@echo ' - test_time_hour_minute'
 	@echo ' - test_time_hour_minute_second'
 	@echo ' - test_time_comparison'
+	@echo ' - test_increment.cpp'
 
 tests: $(TESTS)
 	./test_tp_equals
@@ -36,6 +38,7 @@ tests: $(TESTS)
 	./test_time_hour_minute
 	./test_time_hour_minute_second
 	./test_time_comparison
+	./test_increment.cpp
 # 	add ./your_test here for each of your tests
 
 # using % as a wildcard will have it build anything that starts with test_
