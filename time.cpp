@@ -124,7 +124,7 @@ TimePart validateTime(int hour, int minute, int second)
     }
     else if (minute < -60)
     {
-        hour = hour + (minute / 60) - 1;
+        hour = hour + (minute / 60 - 1);
     }
     else if (minute < 0)
     {
