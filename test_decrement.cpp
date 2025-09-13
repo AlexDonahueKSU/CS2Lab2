@@ -11,7 +11,7 @@ int main()
     std::cout << "Begin unit test for: void decrement()\n";
 
     {
-        std::cout << "Decrement of 1 second, no rollover\n";
+        std::cout << "Decrement of 1 seconds, no rollover\n";
         Time t1(5, 5, 5);
         t1.decrement();
         TimePart ref = {5, 5, 4};
@@ -20,7 +20,7 @@ int main()
     }
 
     {
-        std::cout << "Decrement of 1 second, second rolls over\n";
+        std::cout << "Decrement of 1 second, seconds roll over\n";
         Time t1(5, 5, 0);
         t1.decrement();
         TimePart ref = {5, 4, 59};
@@ -29,7 +29,7 @@ int main()
     }
 
     {
-        std::cout << "Decrement of 1 second, second and minute rolls over\n";
+        std::cout << "Decrement of 1 second, seconds and minutes roll over\n";
         Time t1(20, 0, 0);
         t1.decrement();
         TimePart ref = {19, 59, 59};

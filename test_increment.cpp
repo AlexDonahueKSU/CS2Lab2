@@ -19,7 +19,7 @@ int main()
     }
 
     {
-        std::cout << "Increment of 1 second, second rolls over\n";
+        std::cout << "Increment of 1 second, seconds roll over\n";
         Time t1(5, 5, 59);
         t1.increment();
         TimePart ref = {5, 6, 0};
@@ -28,7 +28,7 @@ int main()
     }
 
     {
-        std::cout << "Increment of 1 second, second and minute rolls over\n";
+        std::cout << "Increment of 1 second, seconds and minutes roll over\n";
         Time t1(10, 59, 59);
         t1.increment();
         TimePart ref = {11, 0, 0};

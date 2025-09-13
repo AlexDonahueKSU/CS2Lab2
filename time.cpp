@@ -197,3 +197,26 @@ void Time::decrement()
     _time.minute = formattedTime.minute;
     _time.second = formattedTime.second;
 }
+
+void Time::add(int seconds)
+{
+    // Same idea with a variable amount of seconds be added.
+    TimePart formattedTime = validateTime(_time.hour, _time.minute, _time.second + seconds);
+    _time.hour = formattedTime.hour;
+    _time.minute = formattedTime.minute;
+    _time.second = formattedTime.second;
+}
+
+int Time::diff(const Time sub)
+{
+    int tempSeconds = 0;
+    int tempMinutes = 0;
+    int tempHours = 0;
+
+    tempHours = _time.hour - sub._time.hour;
+    tempMinutes = _time.minute - sub._time.minute;
+    tempSeconds = _time.second - sub._time.second;
+
+    // Return is only in seconds, so this calculates out the total seconds.
+    return (tempHours * 3600) + (tempMinutes * 60) + tempSeconds;
+}
