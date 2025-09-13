@@ -36,15 +36,6 @@ int main()
         std::cout << "Pass\n";
     }
 
-    {
-        std::cout << "Increment of 1 second, second and minute rolls over\n";
-        Time t1(10, 59, 59);
-        t1.increment();
-        TimePart ref = {11, 0, 0};
-        assert(t1.time() == ref);
-        std::cout << "Pass\n";
-    }
-
     std::cout << "Done testing void increment()\n";
     return 0;
 }

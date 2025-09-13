@@ -46,11 +46,8 @@ int validateHour(int hour)
 int validateMinute(int minute)
 {
     int returnMinute = 0;
-    if (minute < -59)
-    {
-        returnMinute = minute % 60 + 60;
-    }
-    else if (minute < 0)
+
+    if (minute < 0)
     {
         // Say we enter -5 here, the modulus result back will be -5, adding this result
         // to 60 gives us the value we actually want.
@@ -74,9 +71,12 @@ int validateMinute(int minute)
 int validateSecond(int second)
 {
     int returnSecond = 0;
+
     if (second < 0)
     {
-        returnSecond = -second % 60;
+        // Say we enter -5 here, the modulus result back will be -5, adding this result
+        // to 60 gives us the value we actually want.
+        returnSecond = (second % 60) + 60;
     }
     else if (second > 59)
     {
@@ -184,6 +184,15 @@ void Time::increment()
         current values with second + 1, and it will ensure that we roll everything over!
     */
     TimePart formattedTime = validateTime(_time.hour, _time.minute, _time.second + 1);
+    _time.hour = formattedTime.hour;
+    _time.minute = formattedTime.minute;
+    _time.second = formattedTime.second;
+}
+
+void Time::decrement()
+{
+    // Same idea as increment.
+    TimePart formattedTime = validateTime(_time.hour, _time.minute, _time.second - 1);
     _time.hour = formattedTime.hour;
     _time.minute = formattedTime.minute;
     _time.second = formattedTime.second;
