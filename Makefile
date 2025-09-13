@@ -1,4 +1,4 @@
-# John Sipahioglu
+# Alex Donahue
 # Kent State University - Computer Science 2 - Lab 2
 # Makefile
 
