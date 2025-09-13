@@ -1,3 +1,8 @@
+// Alex Donahue
+// Kent State University - Computer Science 2 - Lab 2
+// test_time_hour.cpp
+// Testing the 1 parameter constructor for Time
+
 #include "time.hpp"
 #include <cassert>
 

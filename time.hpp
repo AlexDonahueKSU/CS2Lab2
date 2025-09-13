@@ -1,23 +1,26 @@
-// John Sipahioglu
+// Alex Donahue
 // Kent State University - Computer Science 2 - Lab 2
 // time.hpp
+// ADT for Time
 
 #ifndef TIME_H
 #define TIME_H
 #include <iostream>
 #include <iomanip>
 
-struct TimePart {
+struct TimePart
+{
     int hour;
     int minute;
     int second;
     // compares this and rhs for equality
     bool operator==(const TimePart &rhs);
     // overloaded insertion operator to allow output of TimePart
-    friend std::ostream& operator<<(std::ostream &out, const TimePart &tp); 
+    friend std::ostream &operator<<(std::ostream &out, const TimePart &tp);
 };
 
-class Time {
+class Time
+{
 public:
     // initializes time to 00:00:00
     Time();
@@ -36,7 +39,7 @@ public:
     // returns the current value of second
     int second() const { return _time.second; }
     // compares this and rhs for equality
-    bool operator==(const Time& rhs);
+    bool operator==(const Time &rhs);
     // increments the time by 1 second
     void increment();
     // decrements the time by 1 second
@@ -45,6 +48,7 @@ public:
     void add(int seconds);
     // returns the difference (in seconds) between the *this and sub
     int diff(Time sub);
+
 private:
     TimePart _time;
 };

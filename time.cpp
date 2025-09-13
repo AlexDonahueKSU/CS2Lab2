@@ -1,16 +1,17 @@
-// John Sipahioglu
+// Alex Donahue
 // Kent State University - Computer Science 2 - Lab 2
 // time.cpp
-// write the implementation of class Time here
+// All of my implementation of Time.
 
 #include "time.hpp"
 
-
-bool TimePart::operator==(const TimePart &rhs) {
+bool TimePart::operator==(const TimePart &rhs)
+{
     return hour == rhs.hour && minute == rhs.minute && second == rhs.second;
 }
 
-std::ostream& operator<<(std::ostream &out, const TimePart &tp) {
+std::ostream &operator<<(std::ostream &out, const TimePart &tp)
+{
     out << std::setfill('0') << std::setw(2) << tp.hour << ":";
     out << std::setfill('0') << std::setw(2) << tp.minute << ":";
     out << std::setfill('0') << std::setw(2) << tp.second;
@@ -65,11 +66,11 @@ int validateMinute(int minute)
     }
     else
     {
-         throw std::invalid_argument("Invalid minute");
+        throw std::invalid_argument("Invalid minute");
     }
     return returnMinute;
 }
-// Still need to do second
+
 int validateSecond(int second)
 {
     int returnSecond = 0;
@@ -87,14 +88,16 @@ int validateSecond(int second)
     }
     else
     {
-         throw std::invalid_argument("Invalid second");
+        throw std::invalid_argument("Invalid second");
     }
     return returnSecond;
 }
 
-// This function acts as the centerpiece to control the rest of the functions. It was important to have a function like this
-// because of the way that the time needs to increment. I originally had a design that only used the validate functions, but
-// this proved insufficient for the task.
+/*
+    This function acts as the centerpiece to control the rest of the functions. It was important to have a function like this
+    because of the way that the time needs to increment. I originally had a design that only used the validate functions, but
+    this proved insufficient for the task.
+*/
 TimePart validateTime(int hour, int minute, int second)
 {
     TimePart time;
@@ -103,7 +106,7 @@ TimePart validateTime(int hour, int minute, int second)
     // Logic to check for the rollover of seconds.
     if (second > 59)
     {
-        //Integer division allows for the proper value to be stored.
+        // Integer division allows for the proper value to be stored.
         minute += second / 60;
     }
     else if (second < -60)
@@ -113,7 +116,7 @@ TimePart validateTime(int hour, int minute, int second)
     }
     else if (second < 0)
     {
-        minute -= 1; 
+        minute -= 1;
     }
     time.second = validateSecond(second);
 
@@ -128,7 +131,7 @@ TimePart validateTime(int hour, int minute, int second)
     }
     else if (minute < 0)
     {
-        hour -= 1; 
+        hour -= 1;
     }
     time.minute = validateMinute(minute);
     // Hour exists independent of minutes/seconds, no need for extra checking
@@ -137,7 +140,8 @@ TimePart validateTime(int hour, int minute, int second)
     return time;
 }
 
-Time::Time() {
+Time::Time()
+{
     _time.hour = 0;
     _time.minute = 0;
     _time.second = 0;
@@ -157,7 +161,6 @@ Time::Time(int hour, int minute)
     _time.hour = formattedTime.hour;
     _time.minute = formattedTime.minute;
     _time.second = formattedTime.second;
-
 }
 
 Time::Time(int hour, int minute, int second)
@@ -168,7 +171,20 @@ Time::Time(int hour, int minute, int second)
     _time.second = formattedTime.second;
 }
 
-bool Time::operator==(const Time& rhs)
+bool Time::operator==(const Time &rhs)
 {
     return _time.hour == rhs._time.hour && _time.minute == rhs._time.minute && _time.second == rhs._time.second;
+}
+
+void Time::increment()
+{
+    /*
+        I love how elegant this solution is! My validate time function is already doing
+        a ton of heavy lifting in rolling the time over, so we can just pass the Time's
+        current values with second + 1, and it will ensure that we roll everything over!
+    */
+    TimePart formattedTime = validateTime(_time.hour, _time.minute, _time.second + 1);
+    _time.hour = formattedTime.hour;
+    _time.minute = formattedTime.minute;
+    _time.second = formattedTime.second;
 }

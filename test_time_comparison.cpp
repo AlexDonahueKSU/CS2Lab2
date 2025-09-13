@@ -1,3 +1,8 @@
+// Alex Donahue
+// Kent State University - Computer Science 2 - Lab 2
+// test_time_comparison.cpp
+// Tests for Time comparison equality
+
 #include "time.hpp"
 #include <cassert>
 
